@@ -65,6 +65,19 @@ void insertAtPosition(Node** head, int data, int position) {
 
 
 
+void print(Node* head) {
+  if (head == NULL) {
+    printf("Linked List is empty\n");
+    return;
+  }
+
+  Node* current = head;
+  while (current != NULL) {
+    printf("%d ", current->data);
+    current = current->next;
+  }
+  printf("\n");
+}
 
 
 int main()
