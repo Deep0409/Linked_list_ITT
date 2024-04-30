@@ -63,7 +63,75 @@ void insertAtPosition(Node** head, int data, int position) {
 }
 
 
+void deleteAtBeginning(Node** head) {
+  if (*head == NULL) {
+    printf("Linked List is empty\n");
+    return;
+  }
 
+  Node* temp = *head;
+  *head = (*head)->next;
+  free(temp);
+}
+
+void deleteAtEnd(Node** head) {
+  if (*head == NULL) {
+    printf("Linked List is empty\n");
+    return;
+  }
+
+  if ((*head)->next == NULL) {
+    free(*head);
+    *head = NULL;
+    return;
+  }
+
+  Node* current = *head;
+  while (current->next->next != NULL) {
+    current = current->next;
+  }
+  free(current->next);
+  current->next = NULL;
+}
+
+void deleteAtPosition(Node** head, int index) {
+  if (*head == NULL) {
+    printf("Linked List is empty\n");
+    return;
+  }
+  
+  if (index < 1) {
+    printf("Invalid size\n");
+    return;
+  }
+    int count=1;
+  Node* temp = *head;
+  Node* prev = NULL;
+
+  // Delete head node
+  if (index == count) {
+    *head = temp->next;
+    free(temp);
+    return;
+  }
+
+  // Search for the node
+  while (temp != NULL && count!=index) {
+    prev = temp;
+    temp = temp->next;
+    count++;
+  }
+
+  // If not found
+  if (temp == NULL) {
+    printf("Invalid size\n");
+    return;
+  }
+
+  // Delete node in the middle or at the end
+  prev->next = temp->next;
+  free(temp);
+}
 
 void print(Node* head) {
   if (head == NULL) {
@@ -102,6 +170,18 @@ int main()
   printf("Linked List: ");
   print(head);
 
+  //performing the deletion operation
+  deleteAtBeginning(&head);
+  printf("Linked List after deletion from Beginning : ");
+  print(head);
+  
+  deleteAtEnd(&head);
+  printf("Linked List after deletion from End: ");
+  print(head);
+  
+  deleteAtPosition(&head,4);
+  printf("Linked List after deletion at position: ");
+  print(head);
   
 
     return 0;
