@@ -124,7 +124,7 @@ void deleteAtPosition(Node** head, int index) {
 
   // If not found
   if (temp == NULL) {
-    printf("Invalid size\n");
+    printf("Invalid position\n");
     return;
   }
 
@@ -145,6 +145,29 @@ void print(Node* head) {
     current = current->next;
   }
   printf("\n");
+}
+
+int search(Node* head, int data) {
+  int index = 0;
+  Node* current = head;
+  while (current != NULL) {
+    if (current->data == data) 
+      return index;
+    
+    index++;
+    current = current->next;
+  }
+  return -1; // Data not found
+}
+
+int size(Node* head) {
+  int count = 0;
+  Node* current = head;
+  while (current != NULL) {
+    count++;
+    current = current->next;
+  }
+  return count; // Data not found
 }
 
 
@@ -182,7 +205,28 @@ int main()
   deleteAtPosition(&head,4);
   printf("Linked List after deletion at position: ");
   print(head);
+
+   // Search operation
+  int data = 15;
+  int position = search(head, data);
+  if (position != -1) {
+    printf("%d is found at position %d\n", data, position);
+  } else {
+    printf("%d is not found\n", data);
+  }
+
+//checking data not found case
+  data = 15;//position to be deleted
+  deleteAtPosition(&head, data);
+  printf("Linked List after deletion at position: ");
+  print(head);
   
+//getting the size of the linked List
+ printf("Size of  Linked List : %d\n", size(head));
+ 
+ printf("Final Linked List : ");
+ print(head);
+
 
     return 0;
 }
